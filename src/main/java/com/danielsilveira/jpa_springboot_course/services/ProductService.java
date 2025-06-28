@@ -1,5 +1,6 @@
 package com.danielsilveira.jpa_springboot_course.services;
 
+import com.danielsilveira.jpa_springboot_course.entities.Category;
 import com.danielsilveira.jpa_springboot_course.entities.Product;
 import com.danielsilveira.jpa_springboot_course.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,4 +21,11 @@ public class ProductService {
     public Product findById(Long id) {
         return repository.findById(id).get();
     }
+
+//    public void addCategory(Long id, Category category) {
+//        Product product = findById(id);
+//        assert product != null;
+//        product.getCategories().add(category);
+//        repository.save(product);
+//    }
 }

@@ -1,9 +1,6 @@
 package com.danielsilveira.jpa_springboot_course.config;
 
-import com.danielsilveira.jpa_springboot_course.entities.Category;
-import com.danielsilveira.jpa_springboot_course.entities.Order;
-import com.danielsilveira.jpa_springboot_course.entities.Product;
-import com.danielsilveira.jpa_springboot_course.entities.User;
+import com.danielsilveira.jpa_springboot_course.entities.*;
 import com.danielsilveira.jpa_springboot_course.entities.enums.OrderStatus;
 import com.danielsilveira.jpa_springboot_course.repositories.CategoryRepository;
 import com.danielsilveira.jpa_springboot_course.repositories.OrderRepository;
@@ -28,6 +25,8 @@ public class TestConfig implements CommandLineRunner {
     private CategoryRepository categoryRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -62,5 +61,12 @@ public class TestConfig implements CommandLineRunner {
 
         userRepository.saveAll(List.of(user1, user2));
         orderRepository.saveAll(List.of(order1, order2, order3));
+
+        OrderItem orderItem1 = new OrderItem(order1, product1, 2, product1.getPrice());
+        OrderItem orderItem2 = new OrderItem(order1, product3, 1, product3.getPrice());
+        OrderItem orderItem3 = new OrderItem(order2, product3, 2, product3.getPrice());
+        OrderItem orderItem4 = new OrderItem(order3, product5, 2, product5.getPrice());
+
+        orderItemRepository.saveAll(List.of(orderItem1, orderItem2, orderItem3, orderItem4));
     }
 }
