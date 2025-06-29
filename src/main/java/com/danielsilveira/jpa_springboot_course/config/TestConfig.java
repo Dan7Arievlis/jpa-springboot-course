@@ -2,10 +2,7 @@ package com.danielsilveira.jpa_springboot_course.config;
 
 import com.danielsilveira.jpa_springboot_course.entities.*;
 import com.danielsilveira.jpa_springboot_course.entities.enums.OrderStatus;
-import com.danielsilveira.jpa_springboot_course.repositories.CategoryRepository;
-import com.danielsilveira.jpa_springboot_course.repositories.OrderRepository;
-import com.danielsilveira.jpa_springboot_course.repositories.ProductRepository;
-import com.danielsilveira.jpa_springboot_course.repositories.UserRepository;
+import com.danielsilveira.jpa_springboot_course.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
