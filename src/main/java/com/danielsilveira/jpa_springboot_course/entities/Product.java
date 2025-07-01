@@ -85,6 +85,14 @@ public class Product implements Serializable {
         return categories;
     }
 
+    public void addCategory(Category category) {
+        this.categories.add(category);
+    }
+
+    public void removeCategory(Category category) {
+        this.categories.remove(category);
+    }
+
     @JsonIgnore
     public Set<Order> getOrders() {
         return orders.stream().map(OrderItem::getOrder).collect(Collectors.toSet());
