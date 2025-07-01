@@ -1,6 +1,7 @@
 package com.danielsilveira.jpa_springboot_course.resources.exceptions;
 
 import com.danielsilveira.jpa_springboot_course.services.exceptions.DatabaseException;
+import com.danielsilveira.jpa_springboot_course.services.exceptions.DuplicateCategoryException;
 import com.danielsilveira.jpa_springboot_course.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,14 @@ public class ResourceExceptionHandler {
     public ResponseEntity<StandardError> database(DatabaseException e, HttpServletRequest request) {
         String error = "Database error.";
         HttpStatus status = HttpStatus.BAD_REQUEST;
+        StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(DuplicateCategoryException.class)
+    public ResponseEntity<StandardError> duplicateCategory(DuplicateCategoryException e, HttpServletRequest request) {
+        String error = "Duplicate category.";
+        HttpStatus status = HttpStatus.CONFLICT;
         StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
