@@ -21,7 +21,6 @@ public class UserService {
         return repository.findAll();
     }
 
-    @SuppressWarnings("OptionalGetWithoutIsPresent")
     public User findById(Long id) {
         return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
     }
