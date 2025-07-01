@@ -53,7 +53,7 @@ public class ProductService {
 
     public Product addCategory(Long id, Category category) {
         try {
-            Product product = findById(id);
+            Product product = repository.getReferenceById(id);
             product.addCategory(category);
             return repository.save(product);
         } catch (EntityNotFoundException e) {
@@ -65,7 +65,7 @@ public class ProductService {
 
     public Product removeCategory(Long id, Category category) {
         try {
-            Product product = findById(id);
+            Product product = repository.getReferenceById(id);
             product.removeCategory(category);
             return repository.save(product);
         } catch (EntityNotFoundException e) {

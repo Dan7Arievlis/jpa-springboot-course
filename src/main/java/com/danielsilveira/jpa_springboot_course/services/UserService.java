@@ -1,5 +1,8 @@
 package com.danielsilveira.jpa_springboot_course.services;
 
+import com.danielsilveira.jpa_springboot_course.entities.Category;
+import com.danielsilveira.jpa_springboot_course.entities.Order;
+import com.danielsilveira.jpa_springboot_course.entities.Product;
 import com.danielsilveira.jpa_springboot_course.entities.User;
 import com.danielsilveira.jpa_springboot_course.repositories.UserRepository;
 import com.danielsilveira.jpa_springboot_course.services.exceptions.DatabaseException;
@@ -8,6 +11,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -53,5 +57,29 @@ public class UserService {
         entity.setName(user.getName());
         entity.setEmail(user.getEmail());
         entity.setPhone(user.getPhone());
+    }
+
+    public User addOrder(Long id, Order order) {
+        try {
+            User user = repository.getReferenceById(id);
+            user.addOrder(order);
+            return repository.save(user);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        } catch (JpaObjectRetrievalFailureException e) {
+                throw new ResourceNotFoundException(order.getId());
+        }
+    }
+
+    public User removeOrder(Long id, Order order) {
+        try {
+            User user = repository.getReferenceById(id);
+            user.removeOrder(order);
+            return repository.save(user);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        } catch (JpaObjectRetrievalFailureException e) {
+            throw new ResourceNotFoundException(order.getId());
+        }
     }
 }

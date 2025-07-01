@@ -30,10 +30,10 @@ public class Order implements Serializable {
     @JoinColumn(name="client_id")
     private User client;
 
-    @OneToMany(mappedBy = "id.order")
+    @OneToMany(mappedBy = "id.order", orphanRemoval = true)
     private Set<OrderItem> items = new HashSet<>();
 
-    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private Payment payment;
 
     public Order() {}
@@ -83,6 +83,10 @@ public class Order implements Serializable {
         return items;
     }
 
+    public void removeItem(Product product) {
+        items.removeIf(item -> item.getProduct().equals(product));
+    }
+
     public Payment getPayment() {
         return payment;
     }
@@ -92,7 +96,7 @@ public class Order implements Serializable {
     }
 
     public Double getTotal() {
-        return items.stream().mapToDouble(OrderItem::getPrice).sum();
+        return items.stream().mapToDouble(OrderItem::getSubtotal).sum();
     }
 
     @Override

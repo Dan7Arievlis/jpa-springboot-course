@@ -79,6 +79,14 @@ public class User implements Serializable {
         return orders;
     }
 
+    public void addOrder(Order order) {
+        orders.add(order);
+    }
+
+    public void removeOrder(Order order) {
+        orders.remove(order);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof User user)) return false;
