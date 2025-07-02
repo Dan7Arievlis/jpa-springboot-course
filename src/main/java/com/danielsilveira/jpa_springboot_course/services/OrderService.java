@@ -4,6 +4,7 @@ import com.danielsilveira.jpa_springboot_course.entities.Order;
 import com.danielsilveira.jpa_springboot_course.entities.OrderItem;
 import com.danielsilveira.jpa_springboot_course.entities.Payment;
 import com.danielsilveira.jpa_springboot_course.entities.Product;
+import com.danielsilveira.jpa_springboot_course.entities.enums.OrderStatus;
 import com.danielsilveira.jpa_springboot_course.repositories.OrderItemRepository;
 import com.danielsilveira.jpa_springboot_course.repositories.OrderRepository;
 import com.danielsilveira.jpa_springboot_course.services.exceptions.DatabaseException;
@@ -40,7 +41,10 @@ public class OrderService {
 
     public void delete(Long id) {
         try {
-            repository.deleteById(id);
+            Order order = repository.getReferenceById(id);
+            if (order.getOrderStatus() == OrderStatus.WAITING_PAYMENT || order.getOrderStatus() == OrderStatus.CANCELED) {
+                repository.deleteById(id);
+            }
         } catch (EmptyResultDataAccessException e) {
             throw new ResourceNotFoundException(id);
         } catch (DataIntegrityViolationException e) {
