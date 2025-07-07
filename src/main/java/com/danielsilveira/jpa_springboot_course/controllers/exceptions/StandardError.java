@@ -1,4 +1,4 @@
-package com.danielsilveira.jpa_springboot_course.resources.exceptions;
+package com.danielsilveira.jpa_springboot_course.controllers.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

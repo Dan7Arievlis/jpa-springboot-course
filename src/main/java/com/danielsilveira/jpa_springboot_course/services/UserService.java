@@ -58,28 +58,4 @@ public class UserService {
         entity.setEmail(user.getEmail());
         entity.setPhone(user.getPhone());
     }
-
-    public User addOrder(Long id, Order order) {
-        try {
-            User user = repository.getReferenceById(id);
-            user.addOrder(order);
-            return repository.save(user);
-        } catch (EntityNotFoundException e) {
-            throw new ResourceNotFoundException(id);
-        } catch (JpaObjectRetrievalFailureException e) {
-                throw new ResourceNotFoundException(order.getId());
-        }
-    }
-
-    public User removeOrder(Long id, Order order) {
-        try {
-            User user = repository.getReferenceById(id);
-            user.removeOrder(order);
-            return repository.save(user);
-        } catch (EntityNotFoundException e) {
-            throw new ResourceNotFoundException(id);
-        } catch (JpaObjectRetrievalFailureException e) {
-            throw new ResourceNotFoundException(order.getId());
-        }
-    }
 }

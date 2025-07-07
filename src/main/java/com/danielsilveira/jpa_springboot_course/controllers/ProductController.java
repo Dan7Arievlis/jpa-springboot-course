@@ -1,8 +1,7 @@
-package com.danielsilveira.jpa_springboot_course.resources;
+package com.danielsilveira.jpa_springboot_course.controllers;
 
-import com.danielsilveira.jpa_springboot_course.entities.Category;
 import com.danielsilveira.jpa_springboot_course.entities.Product;
-import com.danielsilveira.jpa_springboot_course.repositories.ProductRepository;
+import com.danielsilveira.jpa_springboot_course.services.CategoryService;
 import com.danielsilveira.jpa_springboot_course.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +13,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/products")
-public class ProductResource {
+public class ProductController {
     @Autowired
     private ProductService service;
+    @Autowired
+    private CategoryService categoryService;
 
     @GetMapping
     public ResponseEntity<List<Product>> findAll() {
@@ -46,18 +47,6 @@ public class ProductResource {
     @PutMapping(value = "/{id}")
     public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody Product product) {
         product = service.update(id, product);
-        return ResponseEntity.ok().body(product);
-    }
-
-    @PutMapping(value = "/c/{id}")
-    public ResponseEntity<Product> addCategory(@PathVariable Long id, @RequestBody Category category) {
-        Product product = service.addCategory(id, category);
-        return ResponseEntity.ok().body(product);
-    }
-
-    @PutMapping(value = "/r/{id}")
-    public ResponseEntity<Product> removeCategory(@PathVariable Long id, @RequestBody Category category) {
-        Product product = service.removeCategory(id, category);
         return ResponseEntity.ok().body(product);
     }
 }

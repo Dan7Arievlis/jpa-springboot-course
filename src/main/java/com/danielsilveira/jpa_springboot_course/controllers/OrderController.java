@@ -1,8 +1,7 @@
-package com.danielsilveira.jpa_springboot_course.resources;
+package com.danielsilveira.jpa_springboot_course.controllers;
 
 import com.danielsilveira.jpa_springboot_course.entities.*;
 import com.danielsilveira.jpa_springboot_course.services.OrderService;
-import com.danielsilveira.jpa_springboot_course.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/orders")
-public class OrderResource {
+public class OrderController {
     @Autowired
     private OrderService service;
 
@@ -45,18 +44,6 @@ public class OrderResource {
     @PutMapping(value = "/{id}")
     public ResponseEntity<Order> update(@PathVariable Long id, @RequestBody Order order) {
         order = service.update(id, order);
-        return ResponseEntity.ok().body(order);
-    }
-
-    @PutMapping(value = "/i/{id}")
-    public ResponseEntity<Order> addItem(@PathVariable Long id, @RequestBody OrderItem orderItem) {
-        Order order = service.addItem(id, orderItem);
-        return ResponseEntity.ok().body(order);
-    }
-
-    @PutMapping(value = "/r/{id}")
-    public ResponseEntity<Order> removeItem(@PathVariable Long id, @RequestBody OrderItem orderItem) {
-        Order order = service.removeItem(id, orderItem);
         return ResponseEntity.ok().body(order);
     }
 }

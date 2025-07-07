@@ -1,4 +1,4 @@
-package com.danielsilveira.jpa_springboot_course.resources;
+package com.danielsilveira.jpa_springboot_course.controllers;
 
 import com.danielsilveira.jpa_springboot_course.entities.Category;
 import com.danielsilveira.jpa_springboot_course.services.CategoryService;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/categories")
-public class CategoryResource {
+public class CategoryController {
     @Autowired
     private CategoryService service;
 

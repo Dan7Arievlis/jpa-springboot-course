@@ -2,6 +2,7 @@ package com.danielsilveira.jpa_springboot_course.entities;
 
 import com.danielsilveira.jpa_springboot_course.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -30,6 +31,7 @@ public class Order implements Serializable {
     @JoinColumn(name="client_id")
     private User client;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "id.order", orphanRemoval = true)
     private Set<OrderItem> items = new HashSet<>();
 

@@ -3,7 +3,6 @@ package com.danielsilveira.jpa_springboot_course.services;
 import com.danielsilveira.jpa_springboot_course.entities.Order;
 import com.danielsilveira.jpa_springboot_course.entities.OrderItem;
 import com.danielsilveira.jpa_springboot_course.entities.Payment;
-import com.danielsilveira.jpa_springboot_course.entities.Product;
 import com.danielsilveira.jpa_springboot_course.entities.enums.OrderStatus;
 import com.danielsilveira.jpa_springboot_course.repositories.OrderItemRepository;
 import com.danielsilveira.jpa_springboot_course.repositories.OrderRepository;
@@ -76,48 +75,5 @@ public class OrderService {
                 throw new DatabaseException("Order Object incomplete. Need to provide an id.");
         else
             entity.setPayment(null);
-    }
-
-    public Order addItem(Long id, OrderItem orderItem) {
-        try {
-            Order entity = repository.getReferenceById(id);
-            orderItem.setPrice(orderItem.getProduct().getPrice());
-            orderItem.setOrder(entity);
-            if (entity.getItems().stream().filter(e -> e.getProduct().equals(orderItem.getProduct())).findAny().isEmpty()) {
-                entity.getItems().add(orderItem);
-                orderItemRepository.save(orderItem);
-            } else {
-                entity.getItems().stream().filter(
-                        item ->
-                                item.getProduct().equals(orderItem.getProduct())).findFirst().ifPresent(
-                        item -> {
-                            item.setQuantity(item.getQuantity() + orderItem.getQuantity());
-                            orderItemRepository.save(item);
-                        });
-            }
-
-            return repository.save(entity);
-        } catch (EntityNotFoundException e) {
-            throw new ResourceNotFoundException(id);
-        } catch (JpaObjectRetrievalFailureException e) {
-            throw new DatabaseException(e.getMessage());
-        }
-    }
-
-    public Order removeItem(Long id, OrderItem orderItem) {
-        try {
-            Order entity = repository.getReferenceById(id);
-            entity.getItems().stream().filter(
-                    item ->
-                            item.getProduct().equals(orderItem.getProduct())).findFirst().ifPresent(
-                    item -> {
-                        item.setQuantity(item.getQuantity() - orderItem.getQuantity());
-                        if (item.getQuantity() <= 0)
-                            entity.removeItem(item.getProduct());
-                    });
-            return repository.save(entity);
-        } catch (EntityNotFoundException e) {
-            throw new ResourceNotFoundException(id);
-        }
     }
 }

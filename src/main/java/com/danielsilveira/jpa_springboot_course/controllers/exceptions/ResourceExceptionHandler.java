@@ -1,4 +1,4 @@
-package com.danielsilveira.jpa_springboot_course.resources.exceptions;
+package com.danielsilveira.jpa_springboot_course.controllers.exceptions;
 
 import com.danielsilveira.jpa_springboot_course.services.exceptions.DatabaseException;
 import com.danielsilveira.jpa_springboot_course.services.exceptions.DuplicateCategoryException;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.time.Instant;
-import java.util.zip.DataFormatException;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {

@@ -12,6 +12,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -46,28 +47,6 @@ public class ProductService {
             Product entity = repository.getReferenceById(id);
             updateData(entity, product);
             return repository.save(entity);
-        } catch (EntityNotFoundException e) {
-            throw new ResourceNotFoundException(id);
-        }
-    }
-
-    public Product addCategory(Long id, Category category) {
-        try {
-            Product product = repository.getReferenceById(id);
-            product.addCategory(category);
-            return repository.save(product);
-        } catch (EntityNotFoundException e) {
-            throw new ResourceNotFoundException(id);
-        } catch (JpaObjectRetrievalFailureException e) {
-            throw new ResourceNotFoundException(category.getId());
-        }
-    }
-
-    public Product removeCategory(Long id, Category category) {
-        try {
-            Product product = repository.getReferenceById(id);
-            product.removeCategory(category);
-            return repository.save(product);
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException(id);
         }

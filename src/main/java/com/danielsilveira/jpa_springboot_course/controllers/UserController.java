@@ -1,7 +1,5 @@
-package com.danielsilveira.jpa_springboot_course.resources;
+package com.danielsilveira.jpa_springboot_course.controllers;
 
-import com.danielsilveira.jpa_springboot_course.entities.Order;
-import com.danielsilveira.jpa_springboot_course.entities.Product;
 import com.danielsilveira.jpa_springboot_course.entities.User;
 import com.danielsilveira.jpa_springboot_course.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/users")
-public class UserResource {
+public class UserController {
     @Autowired
     private UserService service;
 
@@ -46,18 +44,6 @@ public class UserResource {
     @PutMapping(value = "/{id}")
     public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User user) {
         user = service.update(id, user);
-        return ResponseEntity.ok().body(user);
-    }
-
-    @PutMapping(value = "/o/{id}")
-    public ResponseEntity<User> addOrder(@PathVariable Long id, @RequestBody Order order) {
-        User user = service.addOrder(id, order);
-        return ResponseEntity.ok().body(user);
-    }
-
-    @PutMapping(value = "/r/{id}")
-    public ResponseEntity<User> removeOrder(@PathVariable Long id, @RequestBody Order order) {
-        User user = service.removeOrder(id, order);
         return ResponseEntity.ok().body(user);
     }
 }

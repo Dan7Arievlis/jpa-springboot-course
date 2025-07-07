@@ -21,7 +21,6 @@ public class CategoryService {
         return repository.findAll();
     }
 
-    @SuppressWarnings("OptionalGetWithoutIsPresent")
     public Category findById(Long id) {
         return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
     }
